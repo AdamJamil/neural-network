@@ -5,22 +5,22 @@ package com.company;
  */
 public class Trainer
 {
-    NeuralNetwork kimJongUn;
+    NeuralNetwork nn;
     double[][] question;
     double[][] answer;
     double errBound = 0.01;
 
     public Trainer(int inputs, int outputs, int layers, int[] nodes, double[][] question, double[][] answer)
     {
-        kimJongUn = new NeuralNetwork(inputs, outputs, layers, nodes);
-        kimJongUn.randomize(-10, 10);
+        nn = new NeuralNetwork(inputs, outputs, layers, nodes);
+        nn.randomize(-10, 10);
         this.question = question;
         this.answer = answer;
     }
 
     public void setSeed(int seed)
     {
-        kimJongUn.randomize(-10, 10, (long)seed);
+        nn.randomize(-10, 10, (long)seed);
     }
 
     public void teachAll(int rep1, int rep2)
@@ -38,10 +38,10 @@ public class Trainer
     {
         for(int i = 0; i < repetitions; i++)
         {
-            kimJongUn.run(question);
-            double error = kimJongUn.layer[kimJongUn.layer.length - 1].input[0] - answer[0];
-            //System.out.println(kimJongUn.layer[kimJongUn.layer.length - 1].input[0]);
-            kimJongUn.computeErrorAndLearn(kimJongUn.layer[kimJongUn.layer.length - 1].input[0] - answer[0], i);
+            nn.run(question);
+            double error = nn.layer[nn.layer.length - 1].input[0] - answer[0];
+            //System.out.println(nn.layer[nn.layer.length - 1].input[0]);
+            nn.computeErrorAndLearn(nn.layer[nn.layer.length - 1].input[0] - answer[0], i);
         }
     }
 
@@ -73,13 +73,13 @@ public class Trainer
         {
             if (System.currentTimeMillis() - start > 15000 && terminating)
                 return -1;
-            kimJongUn.run(question);
-            //System.out.println(kimJongUn.layer[kimJongUn.layer.length - 1].input[0]);
-            double err = Math.abs(answer[0] - kimJongUn.layer[kimJongUn.layer.length - 1].input[0]);
+            nn.run(question);
+            //System.out.println(nn.layer[nn.layer.length - 1].input[0]);
+            double err = Math.abs(answer[0] - nn.layer[nn.layer.length - 1].input[0]);
             if (err < errBound && err > -errBound)
                 return i;
             else
-                kimJongUn.computeErrorAndLearn(kimJongUn.layer[kimJongUn.layer.length - 1].input[0] - answer[0], i);
+                nn.computeErrorAndLearn(nn.layer[nn.layer.length - 1].input[0] - answer[0], i);
 
         }
     }
