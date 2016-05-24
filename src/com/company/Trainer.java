@@ -8,7 +8,7 @@ public class Trainer
     NeuralNetwork nn;
     double[][] question;
     double[][] answer;
-    double errBound = 0.01;
+    double errBound = 0.001;
 
     public Trainer(int inputs, int outputs, int layers, int[] nodes, double[][] question, double[][] answer)
     {
@@ -40,31 +40,25 @@ public class Trainer
         {
             nn.run(question);
             double error = nn.layer[nn.layer.length - 1].input[0] - answer[0];
-            //System.out.println(nn.layer[nn.layer.length - 1].input[0]);
+            System.out.println(nn.layer[nn.layer.length - 1].input[0]);
             nn.computeErrorAndLearn(nn.layer[nn.layer.length - 1].input[0] - answer[0], i);
         }
     }
 
-    //BROKEN METHOD HERE
     public void teachAllTillLearned(int rep)
     {
         int[][] tries = new int[question.length][rep];
         for(int j = 0; j < rep; j++)
-        {
             for (int i = 0; i < question.length; i++)
             {
-                //tries[i][j] = teachTillLearned(question[i], answer[i]);
+                tries[i][j] = teachTillLearned(question[i], answer[i], 0, false);
+                System.out.println(tries[i][j]);
             }
-        }
 
         for(int i = 0; i < tries[0].length; i++)
-        {
             for(int j = 0; j < tries.length; j++)
-            {
-                //System.out.print(tries[j][i] + "  ");
-            }
-            //System.out.println();
-        }
+                System.out.print(tries[j][i] + "  ");
+            System.out.println();
     }
 
     public int teachTillLearned(double[] question, double[] answer, long start, boolean terminating)
@@ -74,7 +68,7 @@ public class Trainer
             if (System.currentTimeMillis() - start > 15000 && terminating)
                 return -1;
             nn.run(question);
-            //System.out.println(nn.layer[nn.layer.length - 1].input[0]);
+            System.out.println(nn.layer[nn.layer.length - 1].input[0] - answer[0]);
             double err = Math.abs(answer[0] - nn.layer[nn.layer.length - 1].input[0]);
             if (err < errBound && err > -errBound)
                 return i;
@@ -160,8 +154,8 @@ public class Trainer
 
         for(int i = 0; i < problems; i++)
         {
-            kimJongUn.run(input[i]);
-            double err = Math.abs(kimJongUn.layer[kimJongUn.layer.length - 1].input[0] - output[i][0]);
+            nn.run(input[i]);
+            double err = Math.abs(nn.layer[nn.layer.length - 1].input[0] - output[i][0]);
             if (err > errBound)
                 return false;
         }
