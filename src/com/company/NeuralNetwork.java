@@ -59,7 +59,7 @@ public class NeuralNetwork
 
                     //change = -epsilon * chain
 
-                    layer[m].weight[n][o] -= (0.0085) *  Math.pow(Math.E, -setNumber / 20) * relError * layer[m].node[n] * chain[m][n][o];
+                    layer[m].weight[n][o] -= (0.01) * relError * layer[m].node[n] * chain[m][n][o];
                 }
     }
 

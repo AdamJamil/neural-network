@@ -8,7 +8,7 @@ public class Trainer
     NeuralNetwork nn;
     double[][] question;
     double[][] answer;
-    double errBound = 0.001;
+    double errBound = 0.01;
 
     public Trainer(int inputs, int outputs, int layers, int[] nodes, double[][] question, double[][] answer)
     {
@@ -56,9 +56,11 @@ public class Trainer
             }
 
         for(int i = 0; i < tries[0].length; i++)
-            for(int j = 0; j < tries.length; j++)
+        {
+            for (int j = 0; j < tries.length; j++)
                 System.out.print(tries[j][i] + "  ");
             System.out.println();
+        }
     }
 
     public int teachTillLearned(double[] question, double[] answer, long start, boolean terminating)
