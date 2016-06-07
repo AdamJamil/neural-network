@@ -14,7 +14,7 @@ public class Layer
     int nodes;
     Layer next;
 
-    public void clean()
+    void clean()
     {
         for(int i = 0; i < nodes; i++)
         {
@@ -26,7 +26,7 @@ public class Layer
             next.clean();
     }
 
-    public void act()
+    void act()
     {
         if (last)
             return;
@@ -36,12 +36,19 @@ public class Layer
         if (!next.last)
             next.computePhi();
         next.act();
-        return;
     }
 
-    public void fillInput(double[] prevLayer, double[][] prevWeight)
+    private void activate()
     {
-        assert  input.length == prevWeight[0].length;
+        for(int i = 0; i < input.length; i++)
+        {
+            node[i] = sigmoid(input[i]);
+        }
+    }
+
+    private void fillInput(double[] prevLayer, double[][] prevWeight)
+    {
+        assert input.length == prevWeight[0].length;
         for(int j = 0; j < input.length; j++)
         {
             assert prevLayer.length == prevWeight.length;
@@ -53,7 +60,7 @@ public class Layer
         }
     }
 
-    public void computePhi()
+    private void computePhi()
     {
         for(int i = 0; i < nodes; i++)
         {
@@ -64,30 +71,22 @@ public class Layer
         }
     }
 
-    public void activate()
-    {
-        for(int i = 0; i < input.length; i++)
-        {
-            node[i] = sigmoid(input[i]);
-        }
-    }
-
-    public double sigmoid(double x)
+    private double sigmoid(double x)
     {
         return 1 / (1 + Math.pow(2.718281828, -x));
     }
 
-    public double sigmoidPrime(double x)
+    private double sigmoidPrime(double x)
     {
         return sigmoid(x) * sigmoid(-x);
     }
 
-    public Layer(int size)
+    Layer(int size)
     {
         nodes = size;
     }
 
-    public void addNextLayer(Layer nextLayer)
+    void addNextLayer(Layer nextLayer)
     {
         input = new double[nodes];
         node = new double[nodes];
@@ -96,13 +95,13 @@ public class Layer
         phi = new double[nodes][next.nodes];
     }
 
-    public void consoleLastLayer()
+    void consoleLastLayer()
     {
         assert last = true;
         input = new double[nodes];
     }
 
-    public void randomize(double min, double max)
+    void randomize(double min, double max)
     {
         for(int j = 0; j < next.nodes; j++)
         {

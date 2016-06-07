@@ -2,20 +2,17 @@ package com.company;
 
 import java.util.Random;
 
-/**
- * Created by yges on 2/15/2016.
- */
-public class NeuralNetwork
+class NeuralNetwork
 {
     //layer 0 is input[] + bias
     Layer[] layer;
-    double[][][] chain;
+    private double[][][] chain;
 
-    public NeuralNetwork(int inputs, int outputs, int layers, int[] nodes)
+    NeuralNetwork(int inputs, int outputs, int layers, int[] nodes)
     {
         layer = new Layer[layers + 2];
         layer[0] = new Layer(inputs);
-        layer[layers + 1] = new Layer(1);
+        layer[layers + 1] = new Layer(outputs);
 
         for(int i = 1; i < layers + 1; i++)
             layer[i] = new Layer(nodes[i - 1]);
@@ -33,14 +30,14 @@ public class NeuralNetwork
             chain[i] = new double[layer[i].nodes][layer[i + 1].nodes];
     }
 
-    public void run(double[] input)
+    void run(double[] input)
     {
         layer[1].clean();
         layer[0].node = input;
         layer[0].act();
     }
 
-    public void computeErrorAndLearn(double relError, int setNumber)
+    void computeErrorAndLearn(double relError, int setNumber)
     {
         //relError is difference between output and answer, NOT EPSILON
         for(int i = 0; i < layer[layer.length - 2].nodes; i++)
@@ -59,11 +56,11 @@ public class NeuralNetwork
 
                     //change = -epsilon * chain
 
-                    layer[m].weight[n][o] -= (0.01) * relError * layer[m].node[n] * chain[m][n][o];
+                    layer[m].weight[n][o] -= (1) * relError * layer[m].node[n] * chain[m][n][o];
                 }
     }
 
-    public void randomize(double min, double max)
+    void randomize(double min, double max)
     {
         for(int i = 0; i < layer.length - 1; i++)
         {
@@ -71,7 +68,7 @@ public class NeuralNetwork
         }
     }
 
-    public void randomize(double min, double max, long seed)
+    void randomize(double min, double max, long seed)
     {
         Random rand = new Random();
         rand.setSeed(seed);

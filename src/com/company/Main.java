@@ -6,10 +6,10 @@ public class Main
     //as of now, multiple output backprop has not been fully implemented
     public static void main(String[] args)
     {
-        Trainer trainer = new Trainer(2, 1, 1, new int[]{4}, new double[][]{{2, 3}, {4, 5}, {4, 2}}, new double[][]{{6}, {20}, {8}});
-        trainer.setSeed(3);
+        Trainer trainer = new Trainer(2, 2, 1, new int[]{2}, new double[][]{{1, 1}, {0, 1}, {1, 0}, {0, 0}}, new double[][]{{1, 1}, {0, 1}, {0, 1}, {0, 0}});
+        trainer.setSeed(0);
         long start = System.currentTimeMillis();
-        trainer.teachAllTillLearned(1000);
+        trainer.teachAllTillLearned(10000000);
         System.out.println(System.currentTimeMillis() - start);
     }
 }
