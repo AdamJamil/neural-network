@@ -70,7 +70,7 @@ public class Trainer
             if (System.currentTimeMillis() - start > 15000 && terminating)
                 return -1;
             nn.run(question);
-            System.out.println(nn.layer[nn.layer.length - 1].input[0] - answer[0]);
+            System.out.println(answer[0]);
             double err = Math.abs(answer[0] - nn.layer[nn.layer.length - 1].input[0]);
             if (err < errBound && err > -errBound)
                 return i;
