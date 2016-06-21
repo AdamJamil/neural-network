@@ -1,0 +1,12 @@
+public Trainer(int inputs, int outputs, int layers, int[] nodes, double[][] question, double[][] answer)
+
+everything except the last two args go to NeuralNetwork
+question[][]: 2D array, where the first dimension is each set of questions, and the second dimension is all the inputs correlating to that question
+answer[][]: answer correlates to question
+ex.
+question = new int[][]{{2,0}, {1,1}}
+answer = new int[][]{{0}, {1}}
+this is a couple of multiplication problems (2 * 0 = 0, 1 * 1 = 1)
+
+all the other methods are hand made, meaning that they have no set format
+you can edit them as you please

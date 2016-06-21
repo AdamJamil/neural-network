@@ -55,8 +55,9 @@ class NeuralNetwork
                     chain[m][n][o] = sum;
 
                     //change = -epsilon * chain
+                    double learningParameter = 0.01; //change me!
 
-                    layer[m].weight[n][o] -= (0.01) * relError * layer[m].node[n] * chain[m][n][o];
+                    layer[m].weight[n][o] -= learningParameter * relError * layer[m].node[n] * chain[m][n][o];
                 }
     }
 

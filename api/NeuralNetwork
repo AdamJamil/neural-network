@@ -1,0 +1,15 @@
+NeuralNetwork(int inputs, int outputs, int layers, int[] nodes)
+
+inputs: denotes how many quantities are going into the network; in other words, it is n where the neural network is f(x1, x2... xn)
+outputs: can only handle 1 output at the moment, leave as is
+layers: number of /hidden/ layers
+nodes[]: number of nodes per layer. size of the array should be number of layers
+
+ex.
+NeuralNetwork(2, 1, 4, new int[]{2, 2, 10, 10)
+has two inputs, one output, and four hidden layers. the first hidden layer has 2 nodes, the next has 2, and so on.
+
+
+run(double[] input)
+
+tells the neural network the question and computes the answer. answer is stored in the final layer, position 0
