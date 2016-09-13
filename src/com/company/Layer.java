@@ -1,9 +1,6 @@
 package com.company;
 
-/**
- * Created by yges on 2/15/2016.
- */
-public class Layer
+class Layer
 {
     double[] input;
     double[] node;
