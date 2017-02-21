@@ -1,8 +1,5 @@
 package com.company;
 
-/**
- * Created by yges on 2/27/2016.
- */
 public class Trainer
 {
     NeuralNetwork nn;
